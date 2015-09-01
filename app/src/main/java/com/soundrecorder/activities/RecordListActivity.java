@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -151,6 +152,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
                                 }
                                 myAdapter.notifyDataSetChanged();
                             }
+
 
                         });
         R_view.addOnItemTouchListener(swipeTouchListener);
