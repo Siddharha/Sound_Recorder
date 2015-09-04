@@ -110,7 +110,7 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
             private void addToDB() {
                 DatabaseHandler db = new DatabaseHandler(getBaseContext());
-                db.addItem(new Items(name.getText().toString(), timer.getText().toString(),0));
+                db.addItem(new Items(name.getText().toString(), timer.getText().toString(), 0));
                 // db.addItem(new Items("Hi", "abc",0));
                 db.close();
             }
@@ -132,96 +132,134 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
     }
 
+
+//-------------------------------Verson Check-----------------------------//
+
+
+
+    //--------------------------------------------------------------------------
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void menu_animation() {
 
         if (card.isShown()) {
             fab.performClick();
         }
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-        //Toast.makeText(getBaseContext(),"You Clicked",Toast.LENGTH_SHORT).show();
-        int cx = card_menu.getWidth();
-        int cy = 0;
-        // int cy =0;
-        // get the final radius for the clipping circle
-        int finalRadius = Math.max(card_menu.getWidth(), card_menu.getHeight());
 
-        if (card_menu.getVisibility() == View.INVISIBLE) {
-            // create the animator for this view (the start radius is zero)
-            Animator anim = ViewAnimationUtils.createCircularReveal(card_menu, cx, cy, 0, finalRadius);
+            //Toast.makeText(getBaseContext(),"You Clicked",Toast.LENGTH_SHORT).show();
+            int cx = card_menu.getWidth();
+            int cy = 0;
+            // int cy =0;
+            // get the final radius for the clipping circle
+            int finalRadius = Math.max(card_menu.getWidth(), card_menu.getHeight());
 
-            // make the view visible and start the animation
-            card_menu.setVisibility(View.VISIBLE);
-            anim.start();
-        } else if (card_menu.getVisibility() == View.VISIBLE) {
-            // create the animator for this view (the start radius is zero)
-            Animator anim = ViewAnimationUtils.createCircularReveal(card_menu, cx, cy, finalRadius, 0);
-            anim.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    card_menu.setVisibility(View.INVISIBLE);
-                }
-            });
-            anim.start();
+            if (card_menu.getVisibility() == View.INVISIBLE) {
+                // create the animator for this view (the start radius is zero)
+                Animator anim = ViewAnimationUtils.createCircularReveal(card_menu, cx, cy, 0, finalRadius);
+
+                // make the view visible and start the animation
+                card_menu.setVisibility(View.VISIBLE);
+                anim.start();
+            } else if (card_menu.getVisibility() == View.VISIBLE) {
+                // create the animator for this view (the start radius is zero)
+                Animator anim = ViewAnimationUtils.createCircularReveal(card_menu, cx, cy, finalRadius, 0);
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        card_menu.setVisibility(View.INVISIBLE);
+                    }
+                });
+                anim.start();
+            }
+
+        }
+
+        else
+        {
+            if(card_menu.getVisibility() == View.INVISIBLE) {
+                card_menu.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                card_menu.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void CircularReveal_in()
     {
-
-        int cx = card.getWidth() / 2;
-        int cy = card.getHeight() / 2;
-        // int cy =0;
-        // get the final radius for the clipping circle
-        int finalRadius = Math.max(card.getWidth(), card.getHeight());
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
 
-        // create the animator for this view (the start radius is zero)
-        Animator anim = ViewAnimationUtils.createCircularReveal(card, cx, cy, 0, finalRadius);
+            int cx = card.getWidth() / 2;
+            int cy = card.getHeight() / 2;
+            // int cy =0;
+            // get the final radius for the clipping circle
+            int finalRadius = Math.max(card.getWidth(), card.getHeight());
 
 
-        anim.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                indicatorPlaySound();
-                timer.start();
-            }
-        });
-        // make the view visible and start the animation
-        card.setVisibility(View.VISIBLE);
-        anim.start();
+            // create the animator for this view (the start radius is zero)
+            Animator anim = ViewAnimationUtils.createCircularReveal(card, cx, cy, 0, finalRadius);
+
+
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    indicatorPlaySound();
+                    timer.start();
+                }
+            });
+            // make the view visible and start the animation
+            card.setVisibility(View.VISIBLE);
+            anim.start();
+        }
+
+        else
+        {
+                card.setVisibility(View.VISIBLE);
+            indicatorPlaySound();
+            timer.start();
+        }
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void CircularReveal_out()
     {
-        int cx = card.getWidth() / 2;
-        int cy = card.getHeight() / 2;
-        // int cy =0;
-        // get the final radius for the clipping circle
-        int finalRadius = Math.max(card.getWidth(), card.getHeight());
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int cx = card.getWidth() / 2;
+            int cy = card.getHeight() / 2;
+            // int cy =0;
+            // get the final radius for the clipping circle
+            int finalRadius = Math.max(card.getWidth(), card.getHeight());
 
 
-        // create the animator for this view (the start radius is zero)
-        Animator anim = ViewAnimationUtils.createCircularReveal(card, cx, cy, finalRadius,0);
+            // create the animator for this view (the start radius is zero)
+            Animator anim = ViewAnimationUtils.createCircularReveal(card, cx, cy, finalRadius, 0);
 
-        // make the view visible and start the animation
-       // card.setVisibility(View.VISIBLE);
+            // make the view visible and start the animation
+            // card.setVisibility(View.VISIBLE);
 
-        anim.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                card.setVisibility(View.INVISIBLE);
-            }
-        });
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    card.setVisibility(View.INVISIBLE);
+                }
+            });
 
-        anim.start();
+            anim.start();
 
+        }
 
+        else
+        {
+            card.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void indicatorPlaySound()
