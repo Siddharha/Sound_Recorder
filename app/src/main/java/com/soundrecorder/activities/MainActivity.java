@@ -85,7 +85,7 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                     start = 1;
                     time_v.setText("00:00");
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.argb(225, 127, 0, 17)));
-                    fab.animate().translationY(-card.getHeight() - (fab.getHeight() * 3) - 40).setInterpolator(new AccelerateInterpolator(2)).start();
+                    fab.animate().translationY(-card.getHeight() -  (fab.getHeight() * 3) - 40).setInterpolator(new AccelerateInterpolator(2)).start();
                     CircularReveal_in();
                 } else {
                     start = 0;
