@@ -114,7 +114,7 @@
                         android:layout_margin="5dp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Record List"
                         android:id="@+id/menu_txt_1"
@@ -145,7 +145,7 @@
                         android:layout_margin="5dp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="About Us"
                         android:id="@+id/textView"

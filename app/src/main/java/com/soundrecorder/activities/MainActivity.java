@@ -58,11 +58,6 @@ public class MainActivity extends AppCompatActivity {
         click();
     }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        timer.setBase(SystemClock.elapsedRealtime());
-    }
 
 
     private void click() {
