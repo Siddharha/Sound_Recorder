@@ -358,6 +358,16 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
     }
 
+    public void abt_clk(View view)
+    {
+        menu_animation();
+        //Do Pass Intend for another Activity...
+        Intent I = new Intent(this,AboutUsActivity.class);
+        startActivity(I);
+
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

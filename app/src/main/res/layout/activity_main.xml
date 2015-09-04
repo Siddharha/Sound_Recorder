@@ -154,7 +154,8 @@
                         android:layout_alignBottom="@+id/imageButton2"
                         android:layout_toRightOf="@+id/imageButton2"
                         android:layout_toEndOf="@+id/imageButton2"
-                        android:padding="5dp" />
+                        android:padding="5dp"
+                        android:onClick="abt_clk" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
