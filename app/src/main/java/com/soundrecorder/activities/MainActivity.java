@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer   mPlayer = null;
     private String Rec_file_name;
     private Integer i;
+    SharedPreferences pref;
 
 
     @Override
@@ -58,6 +60,21 @@ public class MainActivity extends AppCompatActivity {
         click();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+            i = pref.getInt("rc_name",0);
+            Log.e("Val of i : ", String.valueOf(i));
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 
 
     private void click() {
@@ -83,6 +100,13 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
                 if (start == 0) {
                     start = 1;
+                   // Log.e("pref Val: ", String.valueOf(pref.getInt("rc_name", 0)));
+                    if(pref.getInt("rc_name",0)!=0)
+                    {
+                        i = pref.getInt("rc_name",0);
+                        Log.e("Val of i : ", String.valueOf(i));
+                    }
+
                     time_v.setText("00:00");
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.argb(225, 127, 0, 17)));
                     fab.animate().translationY(-card.getHeight() -  (fab.getHeight() * 3) - 40).setInterpolator(new AccelerateInterpolator(2)).start();
@@ -94,6 +118,7 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                     fab.animate().translationY(fab.getHeight() - (fab.getHeight())).setInterpolator(new AccelerateInterpolator(2)).start();
                     CircularReveal_out();
                     addToDB();
+
                     timer.stop();
                     timer.setBase(SystemClock.elapsedRealtime());
 
@@ -107,6 +132,9 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 //----------------------------------------------------------------------------
                 onRecord();
             }
+
+
+
 
             private void addToDB() {
                 DatabaseHandler db = new DatabaseHandler(getBaseContext());
@@ -275,8 +303,10 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
     private void onRecord() {
         if (start == 1) {
+
             Rec_file_name = "/record"+i+".3gp";
             i++;
+            shaveToPref();
             audioInitialize();
             Log.e("File Name : ",Rec_file_name);
             startRecording();
@@ -288,6 +318,12 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
         }
     }
 
+    private void shaveToPref() {
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("rc_name", i);
+
+        editor.commit();
+    }
 
 
     private void startRecording() {
@@ -315,7 +351,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
     private void initialization() {
         i = 0;
-
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
          Rec_file_name = "record"+".3gp";
 
         start = 0;

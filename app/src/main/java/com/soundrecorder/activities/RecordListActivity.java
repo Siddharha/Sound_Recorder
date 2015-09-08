@@ -1,5 +1,6 @@
 package com.soundrecorder.activities;
 
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.os.Handler;
@@ -52,7 +53,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
     String p,Current_file;
     Chronometer timer_2;
     int x,mFileDuration;
-
+    SharedPreferences pref;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -97,18 +98,24 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
                                     File p = new File(MFlie);
                                     p.delete();
 
-                                    list.remove(position);
-                                    DatabaseHandler db = new DatabaseHandler(getBaseContext());
-                                    if(list.size()>0) {
 
-                                        db.deleteItem(list.get(position));
+                                    DatabaseHandler db = new DatabaseHandler(getBaseContext());
+                                    if(list.size()<2) {
+
+                                        db.deleteItems();
+                                        SharedPreferences.Editor editor = pref.edit();
+                                        editor.remove("rc_name");
+                                        editor.commit();
+                                        Log.e("pref Val: ", String.valueOf(pref.getInt("rc_name", 0)));
+
 
                                     }
                                     else
                                     {
-                                        db.deleteItems();
+                                      db.deleteItem(list.get(position));
                                     }
                                     db.close();
+                                    list.remove(position);
                                     myAdapter.notifyItemRemoved(position);
                                 }
                                 myAdapter.notifyDataSetChanged();
@@ -130,23 +137,24 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
                                     p.delete();
 
 
-                                    list.remove(position);
+
                                     DatabaseHandler db = new DatabaseHandler(getBaseContext());
 
 
-                                    if(list.size()>0) {
-                                        db.deleteItem(list.get(position));
+                                    if(list.size()<2) {
+                                        db.deleteItems();
+                                        SharedPreferences.Editor editor = pref.edit();
+                                        editor.remove("rc_name");
+                                        editor.commit();
+                                        Log.e("pref Val: ", String.valueOf(pref.getInt("rc_name", 0)));
 
                                     }
                                     else
                                     {
-                                        db.deleteItems();
+                                        db.deleteItem(list.get(position));
                                     }
                                     db.close();
-
-
-
-
+                                    list.remove(position);
                                     Log.e("Item : ",String.valueOf(list.size()));
                                     myAdapter.notifyItemRemoved(position);
                                 }
@@ -234,6 +242,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
 
 
     private void initialize() {
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         toolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_small);
         toolbar.setTitle("Record List");
