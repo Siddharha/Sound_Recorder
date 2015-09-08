@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,11 +22,13 @@
         </activity>
         <activity
             android:name=".activities.RecordListActivity"
-            android:label="@string/title_activity_record_list" >
+            android:label="@string/title_activity_record_list"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activities.AboutUsActivity"
-            android:label="@string/title_activity_about_us" >
+            android:label="@string/title_activity_about_us"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
