@@ -129,7 +129,8 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                     start = 0;
 
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.argb(225, 0, 127, 17)));
-                    fab.animate().translationY(fab.getHeight() - (fab.getHeight())).setInterpolator(new AccelerateInterpolator(2)).start();
+//                    fab.animate().translationY(fab.getHeight() - (fab.getHeight())).setInterpolator(new AccelerateInterpolator(2)).start();
+                    fab.animate().translationY(+fab.getY()-card.getY()+(card.getHeight()/2)).setInterpolator(new AccelerateInterpolator(2)).start();
                     CircularReveal_out();
                     addToDB();
 
