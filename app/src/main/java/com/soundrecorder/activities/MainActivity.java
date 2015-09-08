@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer   mPlayer = null;
     private String Rec_file_name;
     private Integer i;
-    SharedPreferences pref;
+    private SharedPreferences pref;
 
     @Override
     public void onBackPressed() {
@@ -122,7 +122,8 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
                     time_v.setText("00:00");
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.argb(225, 127, 0, 17)));
-                    fab.animate().translationY(-card.getHeight() -  (fab.getHeight() * 3) - 40).setInterpolator(new AccelerateInterpolator(2)).start();
+//                    fab.animate().translationY(-card.getHeight() -  (fab.getHeight() * 3) - 40).setInterpolator(new AccelerateInterpolator(2)).start();
+                    fab.animate().translationY(-fab.getY()+card.getY()-(card.getHeight()/2)).setInterpolator(new AccelerateInterpolator(2)).start();
                     CircularReveal_in();
                 } else {
                     start = 0;
