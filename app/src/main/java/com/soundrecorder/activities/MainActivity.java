@@ -14,6 +14,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Chronometer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.soundrecorder.R;
 import com.soundrecorder.beans.Items;
@@ -51,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
     private Integer i;
     SharedPreferences pref;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(card.getVisibility() == View.VISIBLE)
+        {
+            fab.performClick();
+        }
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
