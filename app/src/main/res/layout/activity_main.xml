@@ -3,7 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#dadada">
+    android:background="#c1c1c1">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/wall_cont"
+        android:src="@drawable/logo2"
+        android:scaleType="fitXY"
+        android:visibility="visible" />
+
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar" />
@@ -16,7 +25,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:background="#00a64d00">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -25,7 +35,7 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout"
             android:padding="10dp"
-            android:background="#c6010100"
+            android:background="#e3010001"
             android:gravity="center_vertical"
             android:visibility="visible">
 
@@ -106,12 +116,18 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:id="@+id/imageButton"
-                        android:background="#4aaee6"
+                        android:background="#51c3ff"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_margin="5dp" />
 
+                    <com.andexert.library.RippleView
+                        android:id="@+id/more2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rv_color ="#000000"
+                        >
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -124,6 +140,7 @@
                         android:layout_toRightOf="@+id/imageButton"
                         android:layout_toEndOf="@+id/imageButton"
                         android:padding="5dp" />
+                    </com.andexert.library.RippleView>
 
                 </LinearLayout>
 
@@ -137,12 +154,17 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:id="@+id/imageButton2"
-                        android:background="#e65fbd"
+                        android:background="#ffabe5"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_margin="5dp" />
 
+                    <com.andexert.library.RippleView
+                        android:id="@+id/more1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rv_color ="#000000">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -155,6 +177,7 @@
                         android:layout_toEndOf="@+id/imageButton2"
                         android:padding="5dp"
                         android:onClick="abt_clk" />
+                    </com.andexert.library.RippleView>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

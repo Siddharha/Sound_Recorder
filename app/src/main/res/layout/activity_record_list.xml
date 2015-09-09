@@ -2,6 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.soundrecorder.activities.RecordListActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/wall_list"
+        android:src="@drawable/logo2"
+        android:scaleType="fitXY" />
+
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar" />
@@ -80,8 +88,6 @@
         </RelativeLayout>
 
         </android.support.v7.widget.CardView>
-
-
 
 
 </RelativeLayout>

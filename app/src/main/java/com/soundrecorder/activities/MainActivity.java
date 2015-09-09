@@ -31,6 +31,7 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.soundrecorder.R;
 import com.soundrecorder.beans.Items;
 import com.soundrecorder.utilities.DatabaseHandler;
@@ -52,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private String Rec_file_name;
     private Integer i;
     private SharedPreferences pref;
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
 
@@ -368,7 +367,6 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
         i = 0;
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
          Rec_file_name = "record"+".3gp";
-
         start = 0;
         toolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);
@@ -380,6 +378,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
         audioInitialize();
         card_menu = (CardView)findViewById(R.id.card_menu);
         fab.setBackgroundTintList(ColorStateList.valueOf(Color.argb(225, 0, 127, 17)));
+
     }
 
     private void audioInitialize() {
@@ -401,21 +400,43 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
     public void rec_clk(View view)
     {
-        menu_animation();
-        //Do Pass Intend for another Activity...
-        Intent I = new Intent(this,RecordListActivity.class);
-        startActivity(I);
 
+
+        new Thread(){
+            public void run(){
+                try {
+                    sleep(900);
+                    menu_animation();
+                    //Do Pass Intend for another Activity...
+                    Intent I = new Intent(getBaseContext(),RecordListActivity.class);
+                    startActivity(I);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }.start();
 
     }
 
     public void abt_clk(View view)
     {
-        menu_animation();
-        //Do Pass Intend for another Activity...
-        Intent I = new Intent(this,AboutUsActivity.class);
-        startActivity(I);
+        new Thread(){
+            public void run(){
+                try {
+                    sleep(900);
+                    menu_animation();
+                    //Do Pass Intend for another Activity...
+                    Intent I = new Intent(getBaseContext(), AboutUsActivity.class);
+                    startActivity(I);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
+
+            }
+        }.start();
 
     }
 

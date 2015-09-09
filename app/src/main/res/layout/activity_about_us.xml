@@ -35,7 +35,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Designed by Siddhartha Maji"
         android:id="@+id/textView4"
         android:textSize="20sp"
@@ -43,5 +43,18 @@
         android:textColor="#a6010101"
         android:gravity="center_vertical|center_horizontal"
         android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="76dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:layout_marginTop="57dp"
+        android:src="@drawable/rc_icon"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter" />
+
 </RelativeLayout>
