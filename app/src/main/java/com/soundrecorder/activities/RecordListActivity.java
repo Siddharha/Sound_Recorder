@@ -25,6 +25,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.soundrecorder.R;
 import com.soundrecorder.adapters.MyRecyclerAdapter;
 import com.soundrecorder.beans.Items;
@@ -70,6 +72,14 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
         loadData();
         displayItems();
         onTouchFunction();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AdView mAdView = (AdView) findViewById(R.id.adView_2);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void onTouchFunction() {
