@@ -165,6 +165,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
                         });
         R_view.addOnItemTouchListener(swipeTouchListener);
 
+
         R_view.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -195,6 +196,8 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
 
 
                     }
+
+
                 })
         );
 
