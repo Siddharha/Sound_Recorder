@@ -32,6 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andexert.library.RippleView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.soundrecorder.R;
 import com.soundrecorder.beans.Items;
 import com.soundrecorder.utilities.DatabaseHandler;
@@ -53,12 +55,14 @@ public class MainActivity extends AppCompatActivity {
     private String Rec_file_name;
     private Integer i;
     private SharedPreferences pref;
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         if(card.getVisibility() == View.VISIBLE)
         {
             fab.performClick();
+
         }
 
 
@@ -85,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
 
