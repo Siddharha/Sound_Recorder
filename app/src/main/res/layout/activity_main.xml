@@ -170,7 +170,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="About Us"
-                        android:id="@+id/textView"
+                        android:id="@+id/menu_txt_2"
                         android:textSize="25sp"
                         android:clickable="true"
                         android:layout_alignBottom="@+id/imageButton2"

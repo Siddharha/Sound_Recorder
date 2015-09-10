@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     private String Rec_file_name;
     private Integer i;
     private SharedPreferences pref;
-    private Boolean Ri_t;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -102,9 +101,8 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
-        if (!Ri_t) {
-            menu_animation();
-        }
+                menu_animation();
+
 
         return false;
     }
@@ -278,6 +276,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void CircularReveal_out()
     {
+
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int cx = card.getWidth() / 2;
             int cy = card.getHeight() / 2;
@@ -297,6 +296,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     card.setVisibility(View.INVISIBLE);
+
                 }
             });
 
@@ -371,7 +371,6 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
     private void initialization() {
         i = 0;
-        Ri_t = false;
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
          Rec_file_name = "record"+".3gp";
         start = 0;
@@ -385,6 +384,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
         audioInitialize();
         card_menu = (CardView)findViewById(R.id.card_menu);
         fab.setBackgroundTintList(ColorStateList.valueOf(Color.argb(225, 0, 127, 17)));
+
 
     }
 
@@ -408,51 +408,44 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
     public void rec_clk(View view)
     {
 
-        Ri_t = true;
-       // Toast.makeText(getBaseContext(),String.valueOf(Ri_t),Toast.LENGTH_SHORT).show();
-        Log.e("Ri_t : ",String.valueOf(Ri_t));
-        new Thread(){
+      /*  new Thread(){
             public void run(){
                 try {
-                    sleep(900);
-                    Ri_t = false;
-                   //  Toast.makeText(getBaseContext(),String.valueOf(Ri_t),Toast.LENGTH_SHORT).show();
-                    Log.e("Ri_t : ",String.valueOf(Ri_t));
+                    sleep(900);*/
                     menu_animation();
                     //Do Pass Intend for another Activity...
                     Intent I = new Intent(getBaseContext(),RecordListActivity.class);
                     startActivity(I);
 
-                } catch (InterruptedException e) {
+             /*   } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
 
             }
-        }.start();
+        }.start();*/
 
 
     }
 
     public void abt_clk(View view)
     {
-
-        new Thread(){
+       /* new Thread(){
             public void run(){
                 try {
-                    sleep(900);
+                    sleep(900);*/
                     menu_animation();
                     //Do Pass Intend for another Activity...
                     Intent I = new Intent(getBaseContext(), AboutUsActivity.class);
                     startActivity(I);
 
-                } catch (InterruptedException e) {
+              /*  } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
 
             }
-        }.start();
+        }.start();*/
 
     }
 
