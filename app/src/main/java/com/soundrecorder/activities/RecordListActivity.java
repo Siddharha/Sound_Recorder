@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -85,9 +86,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
     @Override
     protected void onStart() {
         super.onStart();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.R_view);
-
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
+        R_view.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
     }
 
     private void onTouchFunction() {
@@ -370,7 +369,28 @@ public void ShdClk(View view)
     public void onItemLongPress(View childView, int position) {
 
         Toast.makeText(getBaseContext(),"Long Press Working!!",Toast.LENGTH_SHORT).show();
+
+        //Creating the instance of PopupMenu
+        PopupMenu popup = new PopupMenu(RecordListActivity.this, childView);
+        //Inflating the Popup using xml file
+        popup.getMenuInflater()
+                .inflate(R.menu.popup_menu, popup.getMenu());
+
+        //registering popup with OnMenuItemClickListener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(
+                        RecordListActivity.this,
+                        "You Clicked : " + item.getTitle(),
+                        Toast.LENGTH_SHORT
+                ).show();
+                return true;
+            }
+        });
+
+        popup.show(); //showing popup menu
     }
+
 }
 
 
