@@ -1,11 +1,14 @@
 package com.soundrecorder.activities;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -15,13 +18,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -371,7 +377,7 @@ public void ShdClk(View view)
         Toast.makeText(getBaseContext(),"Long Press Working!!",Toast.LENGTH_SHORT).show();
 
         //Creating the instance of PopupMenu
-        PopupMenu popup = new PopupMenu(RecordListActivity.this, childView);
+        PopupMenu popup = new PopupMenu(RecordListActivity.this, childView, Gravity.CENTER);
         //Inflating the Popup using xml file
         popup.getMenuInflater()
                 .inflate(R.menu.popup_menu, popup.getMenu());
@@ -384,11 +390,60 @@ public void ShdClk(View view)
                         "You Clicked : " + item.getTitle(),
                         Toast.LENGTH_SHORT
                 ).show();
+
+                if(item.getTitle().equals("Rename File"))
+                {
+                    DialogueMsg();
+                }
                 return true;
             }
         });
 
         popup.show(); //showing popup menu
+    }
+
+    public void DialogueMsg(){
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RecordListActivity.this);
+        alertDialog.setTitle("File");
+        alertDialog.setMessage("Rename File");
+
+        final EditText input = new EditText(RecordListActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+        //  alertDialog.setIcon(R.drawable.key);
+
+        alertDialog.setPositiveButton("Done",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String Rn = input.getText().toString();
+                        if (Rn.compareTo("") == 0) {
+                           /* if (pass.equals(Rn)) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Password Matched", Toast.LENGTH_SHORT).show();
+                                Intent myIntent1 = new Intent(view.getContext(),
+                                        Show.class);
+                                startActivityForResult(myIntent1, 0);*/
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    "Wrong Password!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+
+                });
+
+        alertDialog.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        alertDialog.show();
     }
 
 }
