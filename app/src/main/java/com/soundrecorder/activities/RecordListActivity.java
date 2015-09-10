@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.logging.FileHandler;
 
-public class RecordListActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+public class RecordListActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, RecyclerItemClickListener.OnItemClickListener {
     private Toolbar toolbar;
     List<Items> list;
     MyRecyclerAdapter myAdapter;
@@ -80,6 +80,14 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
         AdView mAdView = (AdView) findViewById(R.id.adView_2);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.R_view);
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
     }
 
     private void onTouchFunction() {
@@ -176,40 +184,6 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
         R_view.addOnItemTouchListener(swipeTouchListener);
 
 
-        R_view.addOnItemTouchListener(
-                new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        p = list.get(position).getRecord_name();
-//                        PTime =(Integer.parseInt(list.get(position).getDuration()));
-                        // PTime = mPlayer.getDuration();
-                        Toast.makeText(getBaseContext(), p, Toast.LENGTH_SHORT).show();
-                        plr.setVisibility(View.VISIBLE);
-                        shadder.setVisibility(View.VISIBLE);
-                        txt_plr_name.setText(p);
-                        startPlaying();
-                        timer_2.start();
-                        timer_2.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                            @Override
-                            public void onChronometerTick(Chronometer chronometer) {
-                                if(mPlayer != null){
-                                    int mCurrentPosition = mPlayer.getCurrentPosition() / 1000;
-                                   SS_Bar.setProgress(mCurrentPosition);
-
-                                    Log.e("Current Position : ",String.valueOf(mCurrentPosition));
-                                }
-
-                            }
-                        });
-
-                        // SS_Bar.setProgress(Integer.parseInt(list.get(position).getDuration()));
-
-
-                    }
-
-
-                })
-        );
 
 
         plr_x.setOnClickListener(new View.OnClickListener() {
@@ -362,6 +336,41 @@ public void ShdClk(View view)
 
     }
 
+
+
+    @Override
+    public void onItemClick(View childView, int position) {
+
+        //Toast.makeText(getBaseContext(),"Working!!",Toast.LENGTH_SHORT).show();
+        p = list.get(position).getRecord_name();
+//                        PTime =(Integer.parseInt(list.get(position).getDuration()));
+        // PTime = mPlayer.getDuration();
+        Toast.makeText(getBaseContext(), p, Toast.LENGTH_SHORT).show();
+        plr.setVisibility(View.VISIBLE);
+        shadder.setVisibility(View.VISIBLE);
+        txt_plr_name.setText(p);
+        startPlaying();
+        timer_2.start();
+
+        timer_2.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                if (mPlayer != null) {
+                    int mCurrentPosition = mPlayer.getCurrentPosition() / 1000;
+                    SS_Bar.setProgress(mCurrentPosition);
+
+                    Log.e("Current Position : ", String.valueOf(mCurrentPosition));
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void onItemLongPress(View childView, int position) {
+
+        Toast.makeText(getBaseContext(),"Long Press Working!!",Toast.LENGTH_SHORT).show();
+    }
 }
 
 
