@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private String Rec_file_name;
     private Integer i;
     private SharedPreferences pref;
-
+    private Boolean Ri_t;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -102,7 +102,9 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
-        menu_animation();
+        if (!Ri_t) {
+            menu_animation();
+        }
 
         return false;
     }
@@ -119,24 +121,23 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
                 if (start == 0) {
                     start = 1;
-                   // Log.e("pref Val: ", String.valueOf(pref.getInt("rc_name", 0)));
-                    if(pref.getInt("rc_name",0)!=0)
-                    {
-                        i = pref.getInt("rc_name",0);
+                    // Log.e("pref Val: ", String.valueOf(pref.getInt("rc_name", 0)));
+                    if (pref.getInt("rc_name", 0) != 0) {
+                        i = pref.getInt("rc_name", 0);
                         Log.e("Val of i : ", String.valueOf(i));
                     }
 
                     time_v.setText("00:00");
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.argb(225, 127, 0, 17)));
 //                    fab.animate().translationY(-card.getHeight() -  (fab.getHeight() * 3) - 40).setInterpolator(new AccelerateInterpolator(2)).start();
-                    fab.animate().translationY(-fab.getY()+card.getY()-(card.getHeight()/2)).setInterpolator(new AccelerateInterpolator(2)).start();
+                    fab.animate().translationY(-fab.getY() + card.getY() - (card.getHeight() / 2)).setInterpolator(new AccelerateInterpolator(2)).start();
                     CircularReveal_in();
                 } else {
                     start = 0;
 
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.argb(225, 0, 127, 17)));
 //                    fab.animate().translationY(fab.getHeight() - (fab.getHeight())).setInterpolator(new AccelerateInterpolator(2)).start();
-                    fab.animate().translationY(+fab.getY()-card.getY()+(card.getHeight()/2)).setInterpolator(new AccelerateInterpolator(2)).start();
+                    fab.animate().translationY(+fab.getY() - card.getY() + (card.getHeight() / 2)).setInterpolator(new AccelerateInterpolator(2)).start();
                     CircularReveal_out();
                     addToDB();
 
@@ -153,8 +154,6 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 //----------------------------------------------------------------------------
                 onRecord();
             }
-
-
 
 
             private void addToDB() {
@@ -372,6 +371,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
     private void initialization() {
         i = 0;
+        Ri_t = false;
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
          Rec_file_name = "record"+".3gp";
         start = 0;
@@ -408,15 +408,21 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
     public void rec_clk(View view)
     {
 
-
+        Ri_t = true;
+       // Toast.makeText(getBaseContext(),String.valueOf(Ri_t),Toast.LENGTH_SHORT).show();
+        Log.e("Ri_t : ",String.valueOf(Ri_t));
         new Thread(){
             public void run(){
                 try {
                     sleep(900);
+                    Ri_t = false;
+                   //  Toast.makeText(getBaseContext(),String.valueOf(Ri_t),Toast.LENGTH_SHORT).show();
+                    Log.e("Ri_t : ",String.valueOf(Ri_t));
                     menu_animation();
                     //Do Pass Intend for another Activity...
                     Intent I = new Intent(getBaseContext(),RecordListActivity.class);
                     startActivity(I);
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -425,10 +431,12 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             }
         }.start();
 
+
     }
 
     public void abt_clk(View view)
     {
+
         new Thread(){
             public void run(){
                 try {
@@ -437,6 +445,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                     //Do Pass Intend for another Activity...
                     Intent I = new Intent(getBaseContext(), AboutUsActivity.class);
                     startActivity(I);
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
