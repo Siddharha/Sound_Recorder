@@ -425,21 +425,27 @@ public void ShdClk(View view)
                         String fileDIr = Environment.getExternalStorageDirectory()
                                 + File.separator + getPackageName();
                         File f = new File(fileDIr);
-                         String pRFile = f.getAbsolutePath() + File.separator
+                        String pRFile = f.getAbsolutePath() + File.separator
                                 + p;
                         String aRFile = f.getAbsolutePath() + File.separator
-                                + Rn+".3gp";
+                                + Rn + ".3gp";
 
-                        File oldfile =new File(pRFile);
-                        File newfile =new File(aRFile);
-                      oldfile.renameTo(newfile);
+                        File oldfile = new File(pRFile);
+                        File newfile = new File(aRFile);
+                        oldfile.renameTo(newfile);
                         Log.e("FILE RENAMED : ", String.valueOf(Pos));
-                        list.get(Pos).setRecord_name("/"+Rn+".3gp");
+                        list.get(Pos).setRecord_name("/" + Rn + ".3gp");
 
-//---------------------------Doing With DB--------------------------------
+//---------------------------Doing With DB--------------------------------------------------------
+
                         DatabaseHandler db = new DatabaseHandler(getBaseContext());
-                            db.updateItems(list.get(Pos));
-                            db.close();
+                        db.updateItems(list.get(Pos));
+                        db.close();
+
+//---------------------------Making Change in Real Time--------------------------------------------
+
+                        startActivity(new Intent(getBaseContext(),RecordListActivity.class));
+                        finish();
                     }
                 });
 
