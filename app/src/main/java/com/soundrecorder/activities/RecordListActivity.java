@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Path;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -388,18 +389,32 @@ public void ShdClk(View view)
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getTitle().equals("Rename File")) {
                     DialogueMsg();
-                }
-
-                else if (item.getTitle().equals("Share File")) {
-                    BottomSheetPnl();
+                } else if (item.getTitle().equals("Share File")) {
+                    SharePnl();
                 }
 
 
                 return true;
             }
+
+
         });
 
         popup.show(); //showing popup menu
+    }
+
+    private void SharePnl() {
+        //Share......
+        String fileDIr = Environment.getExternalStorageDirectory()
+                + File.separator + getPackageName();
+
+        File f = new File(fileDIr);
+        String sFile = f.getAbsolutePath() + File.separator
+                + p;
+        final Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.setType("audio/3gp");
+        shareIntent.putExtra(android.content.Intent.EXTRA_STREAM, Uri.parse("file://" +sFile));
+        startActivity(Intent.createChooser(shareIntent, "Sound"));
     }
 
     public void DialogueMsg(){
@@ -457,19 +472,7 @@ public void ShdClk(View view)
         alertDialog.show();
     }
 
-    public void BottomSheetPnl()
-    {
-        new BottomSheet.Builder(this).title("Share Recording").sheet(R.menu.share_manu).listener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case R.id.help:
-                       Toast.makeText(getBaseContext(),"Help Me.",Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        }).show();
-    }
+
 
 }
 
