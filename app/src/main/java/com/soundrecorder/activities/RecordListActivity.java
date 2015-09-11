@@ -377,8 +377,6 @@ public void ShdClk(View view)
     public void onItemLongPress(View childView, int position) {
         p = list.get(position).getRecord_name();
         Pos = position;
-        Toast.makeText(getBaseContext(),"Long Press Working!!",Toast.LENGTH_SHORT).show();
-
         //Creating the instance of PopupMenu
         PopupMenu popup = new PopupMenu(RecordListActivity.this, childView, Gravity.CENTER);
         //Inflating the Popup using xml file
@@ -388,12 +386,6 @@ public void ShdClk(View view)
         //registering popup with OnMenuItemClickListener
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(
-                        RecordListActivity.this,
-                        "You Clicked : " + item.getTitle(),
-                        Toast.LENGTH_SHORT
-                ).show();
-
                 if (item.getTitle().equals("Rename File")) {
                     DialogueMsg();
                 }
@@ -467,7 +459,7 @@ public void ShdClk(View view)
 
     public void BottomSheetPnl()
     {
-        new BottomSheet.Builder(this).title("title").sheet(R.menu.share_manu).listener(new DialogInterface.OnClickListener() {
+        new BottomSheet.Builder(this).title("Share Recording").sheet(R.menu.share_manu).listener(new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
