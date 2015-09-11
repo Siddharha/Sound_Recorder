@@ -347,7 +347,7 @@ public void ShdClk(View view)
 
 
     @Override
-    public void onItemClick(View childView, int position) {
+    public void onItemClick(View childView, final int position) {
 
         //Toast.makeText(getBaseContext(),"Working!!",Toast.LENGTH_SHORT).show();
         p = list.get(position).getRecord_name();
