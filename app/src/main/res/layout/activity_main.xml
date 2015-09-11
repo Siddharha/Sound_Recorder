@@ -37,8 +37,7 @@
             android:id="@+id/linearLayout"
             android:padding="10dp"
             android:background="#e3010001"
-            android:gravity="center_vertical"
-            android:visibility="visible">
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
