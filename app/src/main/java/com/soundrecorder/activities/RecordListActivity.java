@@ -3,6 +3,7 @@ package com.soundrecorder.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Path;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.os.Handler;
@@ -61,7 +62,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
     MediaPlayer  mPlayer = null;
     String p,Current_file;
     Chronometer timer_2;
-    int x,mFileDuration;
+    int x,mFileDuration,Pos;
     SharedPreferences pref;
     @Override
     public void onBackPressed() {
@@ -373,7 +374,8 @@ public void ShdClk(View view)
 
     @Override
     public void onItemLongPress(View childView, int position) {
-
+        p = list.get(position).getRecord_name();
+        Pos = position;
         Toast.makeText(getBaseContext(),"Long Press Working!!",Toast.LENGTH_SHORT).show();
 
         //Creating the instance of PopupMenu
@@ -420,20 +422,25 @@ public void ShdClk(View view)
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String Rn = input.getText().toString();
-                        if (Rn.compareTo("") == 0) {
-                           /* if (pass.equals(Rn)) {
-                                Toast.makeText(getApplicationContext(),
-                                        "Password Matched", Toast.LENGTH_SHORT).show();
-                                Intent myIntent1 = new Intent(view.getContext(),
-                                        Show.class);
-                                startActivityForResult(myIntent1, 0);*/
-                        } else {
-                            Toast.makeText(getApplicationContext(),
-                                    "Wrong Password!", Toast.LENGTH_SHORT).show();
-                        }
+                        String fileDIr = Environment.getExternalStorageDirectory()
+                                + File.separator + getPackageName();
+                        File f = new File(fileDIr);
+                         String pRFile = f.getAbsolutePath() + File.separator
+                                + p;
+                        String aRFile = f.getAbsolutePath() + File.separator
+                                + Rn+".3gp";
+
+                        File oldfile =new File(pRFile);
+                        File newfile =new File(aRFile);
+                      oldfile.renameTo(newfile);
+                        Log.e("FILE RENAMED : ", String.valueOf(Pos));
+                        list.get(Pos).setRecord_name("/"+Rn+".3gp");
+
+//---------------------------Doing With DB--------------------------------
+                        DatabaseHandler db = new DatabaseHandler(getBaseContext());
+                            db.updateItems(list.get(Pos));
+                            db.close();
                     }
-
-
                 });
 
         alertDialog.setNegativeButton("NO",
