@@ -449,6 +449,7 @@ public void ShdClk(View view)
                         Log.e("FILE RENAMED : ", String.valueOf(Pos));
                         list.get(Pos).setRecord_name("/" + Rn + ".3gp");
 
+
 //---------------------------Doing With DB--------------------------------------------------------
 
                         DatabaseHandler db = new DatabaseHandler(getBaseContext());
