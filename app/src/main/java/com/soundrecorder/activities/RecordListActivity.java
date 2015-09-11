@@ -33,6 +33,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.soundrecorder.R;
@@ -393,10 +394,15 @@ public void ShdClk(View view)
                         Toast.LENGTH_SHORT
                 ).show();
 
-                if(item.getTitle().equals("Rename File"))
-                {
+                if (item.getTitle().equals("Rename File")) {
                     DialogueMsg();
                 }
+
+                else if (item.getTitle().equals("Share File")) {
+                    BottomSheetPnl();
+                }
+
+
                 return true;
             }
         });
@@ -457,6 +463,20 @@ public void ShdClk(View view)
                 });
 
         alertDialog.show();
+    }
+
+    public void BottomSheetPnl()
+    {
+        new BottomSheet.Builder(this).title("title").sheet(R.menu.share_manu).listener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case R.id.help:
+                       Toast.makeText(getBaseContext(),"Help Me.",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        }).show();
     }
 
 }

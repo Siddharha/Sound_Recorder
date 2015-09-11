@@ -5,4 +5,9 @@
     <string name="title_activity_record_list">RecordListActivity</string>
     <string name="title_activity_about_us">AboutUsActivity</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="whatsapp">WhatsApp</string>
+    <string name="facebook">Facebook</string>
+    <string name="mail">Mail</string>
+    <string name="help">Help</string>
 </resources>
