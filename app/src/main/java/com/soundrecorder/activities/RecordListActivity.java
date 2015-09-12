@@ -49,6 +49,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.FileHandler;
 
 public class RecordListActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, RecyclerItemClickListener.OnItemClickListener {
@@ -66,6 +67,12 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
     Chronometer timer_2;
     int x,mFileDuration,Pos;
     SharedPreferences pref;
+    private Handler myHandler;
+    private double startTime = 0;
+    private double finalTime = 0;
+    public static int oneTimeOnly = 0;
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -90,6 +97,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
         AdView mAdView = (AdView) findViewById(R.id.adView_2);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
     }
 
     @Override
@@ -199,7 +207,8 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
             public void onClick(View v) {
                 plr.setVisibility(View.INVISIBLE);
                 shadder.setVisibility(View.INVISIBLE);
-                timer_2.stop();
+                myHandler.removeCallbacks(UpdateSongTime);
+              //  timer_2.stop();
                 if (mPlayer.isPlaying()) {
                     mPlayer.stop();
                     mPlayer.release();
@@ -224,9 +233,21 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
             mPlayer.setDataSource(mFileName);
             mPlayer.prepare();
             mPlayer.start();
+            finalTime = mPlayer.getDuration();
+            startTime = mPlayer.getCurrentPosition();
 
-            mFileDuration = (mPlayer.getDuration()/1000);
-            SS_Bar.setMax(mFileDuration);
+            Log.e("Times: ",String.valueOf(finalTime));
+
+            if (oneTimeOnly == 0) {
+                SS_Bar.setMax((int) finalTime);
+                oneTimeOnly = 1;
+            }
+
+          /*  mFileDuration = (mPlayer.getDuration()/1000);
+            SS_Bar.setMax(mFileDuration);*/
+            SS_Bar.setProgress((int)startTime);
+            myHandler.postDelayed(UpdateSongTime,100);
+
             Log.e("Duration : ", String.valueOf(mFileDuration));
         } catch (IOException e) {
         }
@@ -237,6 +258,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
 
 
     private void initialize() {
+        myHandler = new Handler();
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         toolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_small);
@@ -317,7 +339,7 @@ public void ShdClk(View view)
 {
     plr.setVisibility(View.INVISIBLE);
     shadder.setVisibility(View.INVISIBLE);
-    timer_2.stop();
+    myHandler.removeCallbacks(UpdateSongTime);
     if (mPlayer.isPlaying()) {
         mPlayer.stop();
         mPlayer.release();
@@ -328,10 +350,7 @@ public void ShdClk(View view)
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if(mPlayer != null && fromUser){
-            mPlayer.seekTo(progress * 1000);
-            timer_2.setBase(SystemClock.elapsedRealtime());
-        }
+
     }
 
     @Override
@@ -358,20 +377,9 @@ public void ShdClk(View view)
         shadder.setVisibility(View.VISIBLE);
         txt_plr_name.setText(p);
         startPlaying();
-        timer_2.start();
 
-        timer_2.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                if (mPlayer != null) {
-                    int mCurrentPosition = mPlayer.getCurrentPosition() / 1000;
-                    SS_Bar.setProgress(mCurrentPosition);
 
-                    Log.e("Current Position : ", String.valueOf(mCurrentPosition));
-                }
 
-            }
-        });
     }
 
     @Override
@@ -474,6 +482,16 @@ public void ShdClk(View view)
     }
 
 
+
+
+
+    private Runnable UpdateSongTime = new Runnable() {
+        public void run() {
+            startTime = mPlayer.getCurrentPosition();
+            SS_Bar.setProgress((int)startTime);
+            myHandler.postDelayed(this, 100);
+        }
+    };
 
 }
 
