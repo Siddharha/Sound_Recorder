@@ -328,7 +328,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
     private void onRecord() {
         if (start == 1) {
 
-            Rec_file_name = "/record"+i+".3gp";
+            Rec_file_name = "/record"+i+".mp4";
             i++;
             shaveToPref();
             audioInitialize();
@@ -350,7 +350,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
     private void startRecording() {
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mRecorder.setOutputFile(mFileName);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         try {

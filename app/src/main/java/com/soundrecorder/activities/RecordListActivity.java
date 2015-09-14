@@ -475,13 +475,13 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
                         String pRFile = f.getAbsolutePath() + File.separator
                                 + p;
                         String aRFile = f.getAbsolutePath() + File.separator
-                                + Rn + ".3gp";
+                                + Rn + ".mp4";
 
                         File oldfile = new File(pRFile);
                         File newfile = new File(aRFile);
                         oldfile.renameTo(newfile);
                         Log.e("FILE RENAMED : ", String.valueOf(Pos));
-                        list.get(Pos).setRecord_name("/" + Rn + ".3gp");
+                        list.get(Pos).setRecord_name("/" + Rn + ".mp4");
 
 
 //---------------------------Doing With DB--------------------------------------------------------
