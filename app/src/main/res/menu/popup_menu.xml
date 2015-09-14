@@ -10,5 +10,5 @@
 
     <item
         android:id="@+id/three"
-        android:title="More.."/>
+        android:title="Sound FX"/>
 </menu>
