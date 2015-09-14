@@ -4,10 +4,12 @@ package com.soundrecorder.beans;
  * Created by BLUEHORSE 123 on 8/28/2015.
  */
 public class Items {
+    //region var dec.
     private String record_name,duration;
     private int size;
     private int index;
-
+    //endregion
+    //region Constructors
     public Items()
     {
 
@@ -17,15 +19,14 @@ public class Items {
         this.duration = duration;
         this.size = size;
     }
-
     public Items(String record_name, String duration, int size, int index) {
         this.record_name = record_name;
         this.duration = duration;
         this.size = size;
         this.index = index;
     }
-
-
+    //endregion
+    //region Getters & Setters
     public String getRecord_name() {
         return record_name;
     }
@@ -57,4 +58,5 @@ public class Items {
     public void setIndex(int index) {
         this.index = index;
     }
+    //endregion
 }

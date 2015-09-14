@@ -24,11 +24,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Contacts table name
     private static final String TABLE_CONTACTS = "contacts";
 
-    // Contacts Table Columns names
+    //region Columns names
+    //Song Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_DURATION = "duration";
     private static final String KEY_SIZE = "size";
+    //endregion
     public DatabaseHandler(Context context) {
         super(context,DATABASE_NAME,null, DATABASE_VERSION);
     }

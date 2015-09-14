@@ -8,13 +8,14 @@ import android.view.MenuItem;
 import com.soundrecorder.R;
 
 public class AboutUsActivity extends AppCompatActivity {
-
+    //region Override Method for Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
     }
-
+    //endregion
+    //region Menu Definitions
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -36,4 +37,5 @@ public class AboutUsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    //endregion
 }

@@ -15,14 +15,17 @@ import java.util.List;
  * Created by BLUEHORSE 123 on 8/28/2015.
  */
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
+    //region Var dec.
     private List<Items> items;
     private int itemLayout;
-
+    //endregion
+    //region Constrictors
     public MyRecyclerAdapter(List<Items> items, int itemLayout) {
         this.items = items;
         this.itemLayout = itemLayout;
     }
-
+    //endregion
+    //region Override methods for RecyclerView.Adapter
     @Override
     public MyRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
@@ -42,7 +45,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     public int getItemCount() {
         return items.size();
     }
-
+    //endregion
+    //region View Holder for Recycler Adapter
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView txt1,txt2,txt3;
         public ViewHolder(View itemView) {
@@ -52,4 +56,5 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             txt3 = (TextView) itemView.findViewById(R.id.txt_size);
         }
     }
+    //endregion
 }
