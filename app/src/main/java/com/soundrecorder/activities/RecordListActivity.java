@@ -45,7 +45,6 @@ import com.soundrecorder.beans.Items;
 import com.soundrecorder.utilities.DatabaseHandler;
 import com.soundrecorder.utilities.RecyclerItemClickListener;
 import com.soundrecorder.utilities.SwipeableRecyclerViewTouchListener;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -517,6 +516,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
         }
     };
     //endregion
+
 
 }
 
