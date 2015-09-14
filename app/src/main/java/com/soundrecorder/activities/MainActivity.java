@@ -43,6 +43,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    //region Var dic.
     private Toolbar toolbar;
     private FloatingActionButton fab;
     private CardView card,card_menu;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     private String Rec_file_name;
     private Integer i;
     private SharedPreferences pref;
+    //endregion
+    //region Override methods for Activity
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -92,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
-
-
+    //endregion
+    //region Click action for Toolbar
     private void click() {
 
 toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -176,9 +179,9 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 });
 
     }
-
-
-//-------------------------------Version Check-----------------------------//
+//endregion
+    //region Menu Animations
+    //-------------------------------Version Check-----------------------------//
 
 
 
@@ -308,7 +311,8 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             card.setVisibility(View.INVISIBLE);
         }
     }
-
+    //endregion
+    //region Default Sound Play for Alert
     private void indicatorPlaySound()
     {
         try {
@@ -319,7 +323,8 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             e.printStackTrace();
         }
     }
-
+    //endregion
+    //region Recorder Handling.
     private void onRecord() {
         if (start == 1) {
 
@@ -336,15 +341,12 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
            // startPlaying();
         }
     }
-
     private void shaveToPref() {
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("rc_name", i);
 
         editor.commit();
     }
-
-
     private void startRecording() {
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -360,14 +362,14 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
         }
 
     }
-
     private void stopRecording() {
         mRecorder.stop();
         mRecorder.release();
         mRecorder = null;
         Log.e("Status :", "Stop Recording!");
     }
-
+    //endregion
+    //region Initialization of Objects & variables
     private void initialization() {
         i = 0;
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
@@ -386,7 +388,8 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
 
     }
-
+    //endregion
+    //region Pulling Song Names
     private void audioInitialize() {
        // mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
        // mFileName += "/audiorecordtest.3gp";
@@ -403,7 +406,8 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
         name.setText(Rec_file_name);
 
     }
-
+    //endregion
+    //region Menu Click Actions
     public void rec_clk(View view)
     {
 
@@ -447,7 +451,8 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
         }.start();*/
 
     }
-
+    //endregion
+    //region Menu definitions..
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -469,4 +474,5 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
 
         return super.onOptionsItemSelected(item);
     }
+    //endregion
 }
