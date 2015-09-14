@@ -138,7 +138,6 @@ toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                     fab.animate().translationY(+fab.getY() - card.getY() + (card.getHeight() / 2)).setInterpolator(new AccelerateInterpolator(2)).start();
                     CircularReveal_out();
                     addToDB();
-
                     timer.stop();
                     timer.setBase(SystemClock.elapsedRealtime());
 

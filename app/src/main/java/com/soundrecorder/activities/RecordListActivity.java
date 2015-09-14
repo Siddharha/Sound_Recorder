@@ -60,7 +60,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
     TextView txt_plr_name;
     SeekBar SS_Bar;
     CardView plr;
-    Button plr_x;
+   // Button plr_x;
     FrameLayout shadder;
     MediaPlayer  mPlayer = null;
     String p,Current_file;
@@ -89,7 +89,9 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
         loadData();
         displayItems();
         onTouchFunction();
+
     }
+
 
     @Override
     protected void onResume() {
@@ -97,6 +99,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
         AdView mAdView = (AdView) findViewById(R.id.adView_2);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
 
     }
 
@@ -202,20 +205,29 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
 
 
 
-        plr_x.setOnClickListener(new View.OnClickListener() {
+       /* plr_x.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 plr.setVisibility(View.INVISIBLE);
                 shadder.setVisibility(View.INVISIBLE);
-                myHandler.removeCallbacks(UpdateSongTime);
+
               //  timer_2.stop();
                 if (mPlayer.isPlaying()) {
                     mPlayer.stop();
                     mPlayer.release();
+                   // myHandler.removeCallbacks(UpdateSongTime);
+                    oneTimeOnly = 0;
                 }
 
+                mPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
+                    @Override
+                    public void onSeekComplete(MediaPlayer mp) {
+                        oneTimeOnly = 0;
+                    }
+                });
+
             }
-        });
+        });*/
 
     }
 
@@ -245,8 +257,10 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
 
           /*  mFileDuration = (mPlayer.getDuration()/1000);
             SS_Bar.setMax(mFileDuration);*/
-            SS_Bar.setProgress((int)startTime);
-            myHandler.postDelayed(UpdateSongTime,100);
+            SS_Bar.setProgress((int) startTime);
+            myHandler.postDelayed(UpdateSongTime, 100);
+
+
 
             Log.e("Duration : ", String.valueOf(mFileDuration));
         } catch (IOException e) {
@@ -272,7 +286,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
         myAdapter = new MyRecyclerAdapter(list, R.layout.table_layout);
         txt_plr_name = (TextView) findViewById(R.id.txt_plr_name);
         plr = (CardView)findViewById(R.id.plr);
-        plr_x = (Button)findViewById(R.id.plr_x);
+       /* plr_x = (Button)findViewById(R.id.plr_x);*/
         shadder = (FrameLayout)findViewById(R.id.shadder);
         timer_2 = (Chronometer)findViewById(R.id.timer_2);
         x = 0;
@@ -339,11 +353,19 @@ public void ShdClk(View view)
 {
     plr.setVisibility(View.INVISIBLE);
     shadder.setVisibility(View.INVISIBLE);
-    myHandler.removeCallbacks(UpdateSongTime);
     if (mPlayer.isPlaying()) {
         mPlayer.stop();
         mPlayer.release();
+        myHandler.removeCallbacks(UpdateSongTime);
+        myHandler = new Handler();
+        oneTimeOnly = 0;
 
+        mPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
+            @Override
+            public void onSeekComplete(MediaPlayer mp) {
+                oneTimeOnly = 0;
+            }
+        });
     }
 
 }
@@ -377,7 +399,7 @@ public void ShdClk(View view)
         shadder.setVisibility(View.VISIBLE);
         txt_plr_name.setText(p);
         startPlaying();
-
+        oneTimeOnly = 0;
 
 
     }
