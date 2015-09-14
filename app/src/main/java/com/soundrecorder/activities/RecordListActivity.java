@@ -53,6 +53,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.FileHandler;
 
 public class RecordListActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, RecyclerItemClickListener.OnItemClickListener {
+    //region Var Dec.
     private Toolbar toolbar;
     List<Items> list;
     MyRecyclerAdapter myAdapter;
@@ -71,28 +72,24 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
     private double startTime = 0;
     private double finalTime = 0;
     public static int oneTimeOnly = 0;
-
-
+    //endregion
+    //region Override methods for Activity
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
        // overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
         initialize();
-
         loadData();
         displayItems();
         onTouchFunction();
 
     }
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -102,13 +99,16 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
 
 
     }
-
+    //endregion
+    //region Click Action Initialization for Recycler View
     @Override
     protected void onStart() {
         super.onStart();
         R_view.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
     }
 
+    //endregion
+    //region Swipeable in Cards
     private void onTouchFunction() {
         SwipeableRecyclerViewTouchListener swipeTouchListener =
                 new SwipeableRecyclerViewTouchListener(R_view,
@@ -231,7 +231,8 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
 
     }
 
-
+    //endregion
+    //region Player Actions
     private void startPlaying() {
 
         String fileDIr = Environment.getExternalStorageDirectory()
@@ -269,8 +270,8 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
 
     }
 
-
-
+    //endregion
+    //region Initializations
     private void initialize() {
         myHandler = new Handler();
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
@@ -292,7 +293,7 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
         x = 0;
         click();
     }
-
+    //endregion
     private void click() {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -301,12 +302,11 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
             }
         });
     }
-
+    //region Sound Data Load.
     private void displayItems() {
         Log.e("List Items: ", list.toString());
         R_view.setAdapter(myAdapter);
     }
-
     private void loadData() {
 
         DatabaseHandler db = new DatabaseHandler(this);
@@ -327,6 +327,8 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
 //            list.add(item);
 //        }
     }
+    //endregion
+    //region Menu Definitions...
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -349,7 +351,9 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
         return super.onOptionsItemSelected(item);
     }
 
-public void ShdClk(View view)
+    //endregion Ded de
+    //region Shader for Player
+    public void ShdClk(View view)
 {
     plr.setVisibility(View.INVISIBLE);
     shadder.setVisibility(View.INVISIBLE);
@@ -370,6 +374,8 @@ public void ShdClk(View view)
 
 }
 
+    //endregion
+    //region Seekbar Action
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
@@ -379,14 +385,12 @@ public void ShdClk(View view)
     public void onStartTrackingTouch(SeekBar seekBar) {
 
     }
-
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
-
-
-
+    //endregion
+    //region Card Click Actions
     @Override
     public void onItemClick(View childView, final int position) {
 
@@ -403,7 +407,6 @@ public void ShdClk(View view)
 
 
     }
-
     @Override
     public void onItemLongPress(View childView, int position) {
         p = list.get(position).getRecord_name();
@@ -432,7 +435,8 @@ public void ShdClk(View view)
 
         popup.show(); //showing popup menu
     }
-
+    //endregion
+    //region Popup Menu
     private void SharePnl() {
         //Share......
         String fileDIr = Environment.getExternalStorageDirectory()
@@ -446,7 +450,6 @@ public void ShdClk(View view)
         shareIntent.putExtra(android.content.Intent.EXTRA_STREAM, Uri.parse("file://" +sFile));
         startActivity(Intent.createChooser(shareIntent, "Sound"));
     }
-
     public void DialogueMsg(){
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(RecordListActivity.this);
@@ -502,11 +505,8 @@ public void ShdClk(View view)
 
         alertDialog.show();
     }
-
-
-
-
-
+    //endregion
+    //region Seek Bar Update
     private Runnable UpdateSongTime = new Runnable() {
         public void run() {
             startTime = mPlayer.getCurrentPosition();
@@ -514,6 +514,7 @@ public void ShdClk(View view)
             myHandler.postDelayed(this, 100);
         }
     };
+    //endregion
 
 }
 
