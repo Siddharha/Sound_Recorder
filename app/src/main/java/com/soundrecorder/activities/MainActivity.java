@@ -375,7 +375,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
     private void initialization() {
         i = 0;
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-         Rec_file_name = "record"+".3gp";
+         Rec_file_name = "record"+".mp4";
         start = 0;
         toolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);
