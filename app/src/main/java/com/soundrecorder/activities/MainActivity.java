@@ -40,6 +40,8 @@ import com.soundrecorder.utilities.DatabaseHandler;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
