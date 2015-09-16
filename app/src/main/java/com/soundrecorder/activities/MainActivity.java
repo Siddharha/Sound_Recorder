@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Chronometer;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private String Rec_file_name;
     private Integer i;
     private SharedPreferences pref;
+    private RelativeLayout hnt;
     //endregion
     //region Override methods for Activity
     @Override
@@ -374,6 +376,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
     //region Initialization of Objects & variables
     private void initialization() {
         i = 0;
+        hnt = (RelativeLayout)findViewById(R.id.hnt);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
          Rec_file_name = "record"+".mp4";
         start = 0;
@@ -477,4 +480,8 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
         return super.onOptionsItemSelected(item);
     }
     //endregion
+    public void hint_clk(View view)
+    {
+        hnt.setVisibility(View.GONE);
+    }
 }
