@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private String Rec_file_name;
     private Integer i;
     private SharedPreferences pref;
-    private RelativeLayout hnt;
+    private RelativeLayout hnt,hnt_2;
     //endregion
     //region Override methods for Activity
     @Override
@@ -377,6 +377,7 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
     private void initialization() {
         i = 0;
         hnt = (RelativeLayout)findViewById(R.id.hnt);
+        hnt_2 = (RelativeLayout)findViewById(R.id.hnt_2);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
          Rec_file_name = "record"+".mp4";
         start = 0;
@@ -480,8 +481,19 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
         return super.onOptionsItemSelected(item);
     }
     //endregion
+    //region Hint Panel
     public void hint_clk(View view)
     {
+
         hnt.setVisibility(View.GONE);
+        hnt_2.setVisibility(View.VISIBLE);
+
+
     }
+
+    public void hnt_nxt(View view)
+    {
+        hnt_2.setVisibility(View.GONE);
+    }
+    //endregion
 }
