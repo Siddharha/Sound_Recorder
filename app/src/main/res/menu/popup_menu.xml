@@ -8,7 +8,4 @@
         android:id="@+id/two"
         android:title="Share File"/>
 
-    <item
-        android:id="@+id/three"
-        android:title="Sound FX"/>
 </menu>

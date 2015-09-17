@@ -410,32 +410,35 @@ public class RecordListActivity extends AppCompatActivity implements SeekBar.OnS
     }
     @Override
     public void onItemLongPress(View childView, int position) {
-        p = list.get(position).getRecord_name();
-        Pos = position;
-        //Creating the instance of PopupMenu
-        PopupMenu popup = new PopupMenu(RecordListActivity.this, childView, Gravity.CENTER);
-        //Inflating the Popup using xml file
-        popup.getMenuInflater()
-                .inflate(R.menu.popup_menu, popup.getMenu());
 
-        //registering popup with OnMenuItemClickListener
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getTitle().equals("Rename File")) {
-                    DialogueMsg();
-                } else if (item.getTitle().equals("Share File")) {
-                    SharePnl();
+            p = list.get(position).getRecord_name();
+            Pos = position;
+            //Creating the instance of PopupMenu
+            PopupMenu popup = new PopupMenu(RecordListActivity.this, childView, Gravity.CENTER);
+            //Inflating the Popup using xml file
+            popup.getMenuInflater()
+                    .inflate(R.menu.popup_menu, popup.getMenu());
+
+            //registering popup with OnMenuItemClickListener
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getTitle().equals("Rename File")) {
+                        DialogueMsg();
+                    } else if (item.getTitle().equals("Share File")) {
+                        SharePnl();
+                    }
+
+
+                    return true;
                 }
 
 
-                return true;
-            }
+            });
 
+            popup.show(); //showing popup menu
 
-        });
+        }
 
-        popup.show(); //showing popup menu
-    }
     //endregion
     //region Popup Menu
     private void SharePnl() {
