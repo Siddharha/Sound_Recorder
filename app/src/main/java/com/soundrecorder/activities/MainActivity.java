@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.Ringtone;
@@ -28,6 +29,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ import com.google.android.gms.ads.AdView;
 import com.soundrecorder.R;
 import com.soundrecorder.beans.Items;
 import com.soundrecorder.utilities.DatabaseHandler;
+import com.soundrecorder.utilities.Pref;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
     private Integer i;
     private SharedPreferences pref;
     private RelativeLayout hnt,hnt_2;
+    private Pref _pref;
+    private ImageView imgShape;
+    private Matrix matrix;
     //endregion
     //region Override methods for Activity
     @Override
@@ -95,10 +101,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+       Boolean b = _pref.getBooleanSession("hint_show");
+
+            if(!b)
+            {
+                hnt.setVisibility(View.VISIBLE);
+            }
+
+        rotateShape();
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
+
+
+
     //endregion
     //region Click action for Toolbar
     private void click() {
@@ -376,6 +393,8 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
     //region Initialization of Objects & variables
     private void initialization() {
         i = 0;
+        _pref = new Pref(getBaseContext());
+        matrix = new Matrix();
         hnt = (RelativeLayout)findViewById(R.id.hnt);
         hnt_2 = (RelativeLayout)findViewById(R.id.hnt_2);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
@@ -494,6 +513,17 @@ timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
     public void hnt_nxt(View view)
     {
         hnt_2.setVisibility(View.GONE);
+        _pref.setSession("hint_show",true);
     }
     //endregion
+
+    private void rotateShape() {
+       float angle =0.5F;
+/*
+        imgShape.setScaleType(ImageView.ScaleType.MATRIX);   //required
+        matrix.postRotate((float) angle, imgShape.getPivotX(), imgShape.getPivotY());
+        imgShape.setImageMatrix(matrix);*/
+
+
+    }
 }
